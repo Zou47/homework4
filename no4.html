@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>homework1</title>
+</head>
+
+    <body>
+        <style type="text/css">
+            #div{
+                transition: all 0.5s;
+                -moz-transition: all 0.5s;
+                -webkit-transition: all 0.5s; 
+                -o-transition: all 0.5s;
+            }
+            input{
+                background:pink;
+            }
+            body{
+                height: 2000px;
+                margin:0;
+                padding: 0;
+            }
+            #DingBu{
+                position: fixed;
+                cursor: pointer;
+                width: 40px;
+                height: 40px;
+                right: 10px;
+                bottom: 10px;
+                padding-top: 20px;
+                background: url(DingBu.png) no-repeat center center;
+            }
+            
+        </style>
+        <script>
+    window.onload=function()
+    {
+        var div = document.createElement("div");//可以控制的div
+        div.id = "div";
+        var style = document.createAttribute("style");
+        div.setAttributeNode(style);
+        div.style.backgroundColor = "#66FFCC";
+        div.style.width = "200px";
+        div.style.height = "200px";
+        div.style.position = "absolute";
+        document.getElementsByTagName("body").item(0).appendChild(div);
+
+        var divv = document.createElement("div");//另外一个div
+        divv.id = "divv";
+        var style = document.createAttribute("style");
+        divv.setAttributeNode(style);
+        divv.style.backgroundColor = "#66CCFF";
+        divv.style.width = "150px";
+        divv.style.height = "150px";
+        var content = document.createTextNode("我第一下点向下向右或者向左向上没有过渡动画！QAQ！(右下角有一个小小小火箭)");
+        divv.appendChild(content);
+        document.getElementsByTagName("body").item(0).appendChild(divv);
+
+        var obj = document.getElementById('div');
+        var up = document.getElementById('up');
+        var right = document.getElementById('right');
+        var down = document.getElementById('down');
+        var left = document.getElementById('left');
+        var big = document.getElementById('big');
+        var small = document.getElementById('small');
+
+        up.onmousedown=function()
+        {
+            Move('up');
+        }
+        right.onmousedown=function()
+        {
+             Move('right');
+        }
+        down.onmousedown=function()
+        {
+             Move('down');
+        }
+        left.onmousedown=function()
+        {
+             Move('left');
+        }
+        big.onmousedown=function()
+        {
+             Move('big');
+        }
+        small.onmousedown=function()
+        {
+             Move('small');
+        }
+
+        function Move (a)
+        {
+              switch (a)
+            {
+                case 'left' :
+                    obj.style.left = obj.offsetLeft - 30 + 'px';
+                break;
+                case 'right' :
+                    obj.style.left = obj.offsetLeft + 30 + 'px';
+                break;
+                case 'up' :
+                    obj.style.top = obj.offsetTop - 30 + 'px';
+                break;
+                case 'down' :
+                    obj.style.top = obj.offsetTop + 30 + 'px';
+                break;
+                case 'big':
+                    obj.style.width = obj.offsetWidth + 50 + 'px';
+                    obj.style.height = obj.offsetHeight + 50 + 'px';
+                break;
+                case 'small':
+                    obj.style.width = obj.offsetWidth - 50 + 'px';
+                    obj.style.height = obj.offsetHeight - 50 + 'px';
+            }
+        }
+
+        var Totop = document.getElementById("DingBu");
+        var timer = null;
+        DingBu.onclick = function()
+        {
+    		cancelAnimationFrame(timer);
+    		timer = requestAnimationFrame(function fn(){
+        	var toTop = document.body.scrollTop || document.documentElement.scrollTop;
+        	if(toTop > 0)
+        	{
+           		document.body.scrollTop = document.documentElement.scrollTop = toTop - 50;
+            	timer = requestAnimationFrame(fn);
+        	}
+        	else{
+            cancelAnimationFrame(timer);
+        	}    
+    		});
+		}
+    }
+    </script>
+    <input type="button" value="向上" id="up">
+    <input type="button" value="向右" id="right">
+    <input type="button" value="向下" id="down">
+    <input type="button" value="向左" id="left">
+    <input type="button" value="变大" id="big">
+    <input type="button" value="变小" id="small">
+    <div id="DingBu"></div><!-- 右下角的小火箭,有点小！！ -->
+
+    </body>
+</html>
